@@ -1,0 +1,17 @@
+!pip install pyspark
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder \
+    .appName("Big Data Analyst") \
+    .getOrCreate()
+
+print("Spark Session Created Successfully")
+import pandas as pd
+pdf = pd.read_csv(url)
+data = spark.createDataFrame(pdf)
+data.show(5)
+print("Total Rows:", data.count())
+print("Total Columns:", len(data.columns))
+data.printSchema()
+data.groupBy("survived").count().show()
+data.selectExpr("avg(age)").show()
